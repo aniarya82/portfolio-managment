@@ -87,7 +87,7 @@ func indexPage(w http.ResponseWriter, r *http.Request) {
 		pageRoutes{"/books/hello/page/2", "testing-variables"},
 		pageRoutes{"/todo", "todo tasks"},
 		pageRoutes{"/contactus", "Contact Us"},
-		pageRoutes{"/stocks", "List available stocks"}
+		pageRoutes{"/stocks", "List available stocks"},
 	}
 	variable := pageVariable{
 		Title:  "Index page",

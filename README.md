@@ -13,3 +13,7 @@ This is developed in Golang with backend written in flask.
 - `/stocks` List out the list of stocks to choose for a Portfolio
 - `/contactus` A simple contact us form I tested for POST request capability
 - `/portfolioStats` Final url one is directed with Portfolio Stats
+
+## Backend
+
+This application servers just the frontend. Here is the [link](https://github.com/aniarya82/portfolioAPI.git) for the backend server written in python.

@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>{{.PageTitle}}</title>
+    <link rel="stylesheet" href="static/css/bootstrap/bootstrap.min.css" />
+    <link rel="stylesheet" href="static/css/syle.css" />
+  </head>
+  <body>
+    <div class="container">
+      <h1>{{.PageTitle}}</h1>
+      <ul>
+        {{range .Todos}} {{if .Done}}
+        <li class="done">{{.Title}}</li>
+        {{else}}
+        <li>{{.Title}}</li>
+        {{end}} {{end}}
+      </ul>
+    </div>
+  </body>
+</html>

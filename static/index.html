@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{{.Title}}</title>
+    <link rel="stylesheet" href="static/css/bootstrap/bootstrap.min.css" />
+    <!-- <link rel="stylesheet" href="static/css/syle.css" /> -->
+  </head>
+  <body>
+    <div class="container">
+      {{with $1:=.Routes}}
+      <h2>Possible routes available are:</h2>
+      <li>
+        {{range $1}}
+        <ul>
+          <a href="{{.Src}}" class="btn btn-primary">{{.Text}}</a>
+        </ul>
+        {{end}}
+      </li>
+      {{end}}
+    </div>
+  </body>
+</html>

@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{{.Title}}</title>
+    <link rel="stylesheet" href="static/css/bootstrap/bootstrap.min.css" />
+  </head>
+  <body>
+    <div class="container">
+      <h2>Select among folowing stocks:</h2>
+      {{with $1:=.Stocks}}
+      <form method="POST" id="myForm">
+        <div class="btn-group-toggle" data-toggle="buttons">
+          {{range $1}}
+          <label class="btn btn-outline-primary">
+            <input type="checkbox" name="stocks" value="{{.Label}}" />
+            {{.Text}}
+          </label>
+          {{end}}
+        </div>
+        <h2>Select duration for historical data :</h2>
+        <div class="btn-group-toggle" data-toggle="buttons">
+          <label class="btn btn-outline-secondary">
+            <input type="radio" name="duration" value="1" /> 1 Year
+          </label>
+          <label class="btn btn-outline-secondary">
+            <input type="radio" name="duration" value="3" /> 3 Year
+          </label>
+          <label class="btn btn-outline-secondary">
+            <input type="radio" name="duration" value="5" /> 5 Year
+          </label>
+        </div>
+        <br />
+        <button id="submitButton" class="btn btn-success">Submit</button>
+        {{end}}
+        <div id="secondBlock" class="d-none">
+          <h2>Assign weights now:</h2>
+          <div id="secondForm">
+            <div class="form-group row">
+              <label for="total-wt" class="col-md-4 col-form-label"
+                >Total Weight</label
+              >
+              <input
+                type="text"
+                name="weights"
+                id="total-wt"
+                class="form-control col-md-4"
+                disabled
+              />
+            </div>
+          </div>
+          <button class="btn btn-primary d-none" id="finalSubmit">
+            Final Submit
+          </button>
+        </div>
+      </form>
+    </div>
+  </body>
+  <script src="static/js/jquery.js"></script>
+  <script src="static/js/bootstrap/bootstrap.min.js"></script>
+  <script>
+    $("#submitButton").on("click", function (evt) {
+      evt.preventDefault();
+      $("#secondBlock").removeClass("d-none");
+      console.log("CLick invoked");
+      var ticks = [];
+      var duration;
+      var htext = "";
+      var qstr = $("#myForm").serializeArray();
+      qstr.forEach(function (arr) {
+        if (arr["name"] == "stocks") {
+          // console.log("In if true block");
+          htext +=
+            "<div class='form-group row'><label class='col-md-4 col-form-label' for='weights'>" +
+            arr["value"] +
+            "</label>" +
+            "<input type='text' name='weights' class='form-control col-md-4 weights' id='weights' value='0' oninput='customHere()'/></div>";
+          ticks.push(arr["value"]);
+        } else {
+          // console.log("In if false block");
+          duration = arr["value"];
+        }
+      });
+      $("#secondForm").append(htext);
+      console.log(duration);
+      console.log(ticks);
+      $("#submitButton").hide();
+    });
+    $("#finalSubmit").on("click", function () {
+      console.log("Final Submit invoked");
+      $("#myForm").submit();
+    });
+    function customHere() {
+      console.log("input triggers");
+      var total = 0;
+      $("input.weights").each(function () {
+        total += parseFloat($(this).val());
+      });
+      console.log("Total Weight : " + total);
+      $("#total-wt").val(total);
+      if (total == 1) {
+        console.log("Yes 1");
+        $("#finalSubmit").removeClass("d-none");
+      } else {
+        console.log("Not 1");
+        $("#finalSubmit").addClass("d-none");
+      }
+    }
+  </script>
+</html>

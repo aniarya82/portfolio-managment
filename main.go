@@ -20,7 +20,7 @@ type ContactDetail struct {
 }
 
 func submitcontact(w http.ResponseWriter, r *http.Request) {
-	forms := template.Must(template.ParseFiles("static/forms.html"))
+	forms := template.Must(template.ParseFiles("/home/ubuntu/go/portfolio-managment/static/forms.html"))
 	details := ContactDetail{
 		Email:   r.FormValue("email"),
 		Subject: r.FormValue("subject"),
@@ -34,7 +34,7 @@ func submitcontact(w http.ResponseWriter, r *http.Request) {
 }
 
 func getcontact(w http.ResponseWriter, r *http.Request) {
-	forms := template.Must(template.ParseFiles("static/forms.html"))
+	forms := template.Must(template.ParseFiles("/home/ubuntu/go/portfolio-managment/static/forms.html"))
 	forms.Execute(w, nil)
 }
 
@@ -51,7 +51,7 @@ type TodoPageData struct {
 }
 
 func todo(w http.ResponseWriter, r *http.Request) {
-	tmpl := template.Must(template.ParseFiles("static/layout.html"))
+	tmpl := template.Must(template.ParseFiles("/home/ubuntu/go/portfolio-managment/static/layout.html"))
 	data := TodoPageData{
 		PageTitle: "My TODO List",
 		Todos: []Todo{
@@ -82,7 +82,7 @@ type pageVariable struct {
 }
 
 func indexPage(w http.ResponseWriter, r *http.Request) {
-	index := template.Must(template.ParseFiles("static/index.html"))
+	index := template.Must(template.ParseFiles("/home/ubuntu/go/portfolio-managment/static/index.html"))
 	allRoutes := []pageRoutes{
 		pageRoutes{"/books/hello/page/2", "testing-variables"},
 		pageRoutes{"/todo", "todo tasks"},
@@ -107,7 +107,7 @@ type pageVar struct {
 }
 
 func listAllStocks(w http.ResponseWriter, r *http.Request) {
-	tmplt := template.Must(template.ParseFiles("static/listStocks.html"))
+	tmplt := template.Must(template.ParseFiles("/home/ubuntu/go/portfolio-managment/static/listStocks.html"))
 	res, err := http.Get("http://127.0.0.1:5000/api/nifty50/")
 	if err != nil {
 		log.Fatal(err)
@@ -181,14 +181,14 @@ func submitStocks(w http.ResponseWriter, r *http.Request) {
 }
 
 func portfolioStats(w http.ResponseWriter, r *http.Request) {
-	tmplt := template.Must(template.ParseFiles("static/portfolioStats.html"))
+	tmplt := template.Must(template.ParseFiles("/home/ubuntu/go/portfolio-managment/static/portfolioStats.html"))
 	tmplt.Execute(w, finalPort)
 }
 
 func main() {
 	r := mux.NewRouter()
 	// Static and assets dir loading
-	fs := http.FileServer(http.Dir("static/"))
+	fs := http.FileServer(http.Dir("/home/ubuntu/go/portfolio-managment/static/"))
 	r.PathPrefix("/static/").Handler(http.StripPrefix("/static/", fs))
 
 	r.HandleFunc("/books/{title}/page/{page}", books)

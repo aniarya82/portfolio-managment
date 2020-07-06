@@ -17,3 +17,7 @@ This is developed in Golang with backend written in flask.
 ## Backend
 
 This application servers just the frontend. Here is the [link](https://github.com/aniarya82/portfolioAPI.git) for the backend server written in python.
+
+## Prerequisites
+
+go get github.com/gorilla/mux
